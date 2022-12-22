@@ -3,8 +3,13 @@
          :sha     "ce41a37e7217c30886535fc0588bc6e452ce93c6"}
         org.clojars.darkleaf/web-templates
         {:git/url "https://github.com/darkleaf/web-template.git"
-         :sha     "a84eef73e1d92d511c92c08da154da8b0d7a7fb7"}
+         :sha     "9831c2fb77a2f7eb960a197f6cdad52384bb27bf"}
 
         ring/ring-core             {:mvn/version "1.9.5"}
         ring/ring-jetty-adapter    {:mvn/version "1.9.5"}
-        metosin/ring-http-response {:mvn/version "0.9.3"}}}
+        metosin/ring-http-response {:mvn/version "0.9.3"}
+        metosin/reitit-core        {:mvn/version "0.5.18"}
+        metosin/reitit-ring        {:mvn/version "0.5.18"}
+        org.slf4j/slf4j-simple     {:mvn/version "1.7.36"}}
+ :aliases
+ {:dev {:extra-paths ["dev"]}}}
