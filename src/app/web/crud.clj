@@ -48,10 +48,8 @@
    '[.mb-3
      [label.form-label {for (:id)}
       (:label)]
-     [input.form-control {id       (:id)
-                          name     (:name)
-                          type     (:type)
-                          required (:required)}]]))
+     [input.form-control {id  (:id)
+                          ... (:input-attrs)}]]))
 
 (def new-tmpl
   (wt/compile
@@ -93,14 +91,14 @@
                     :string          {::wt/renderable #'input-tmpl
                                       :id             "string"
                                       :label          "String"
-                                      :type           "text"
-                                      :name           "form[string]"}
+                                      :input-attrs    {:type "text"
+                                                       :name "form[string]"}}
                     :required-string {::wt/renderable #'input-tmpl
                                       :id             "required-string"
                                       :label          "Required string"
-                                      :type           "text"
-                                      :required       true
-                                      :name           "form[required-string]"}}})
+                                      :input-attrs    {:type     "text"
+                                                       :required true
+                                                       :name     "form[required-string]"}}}})
 
 (defn new-action [-deps req]
   (-> (wt.ring/body (new-presenter req))
