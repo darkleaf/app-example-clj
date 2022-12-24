@@ -3,7 +3,7 @@
          :sha     "ce41a37e7217c30886535fc0588bc6e452ce93c6"}
         org.clojars.darkleaf/web-templates
         {:git/url "https://github.com/darkleaf/web-template.git"
-         :sha     "9831c2fb77a2f7eb960a197f6cdad52384bb27bf"}
+         :sha     "701dc048fb1c9aed6c0ec53a7509e877dd1e6851"}
 
         ring/ring-core             {:mvn/version "1.9.5"}
         ring/ring-jetty-adapter    {:mvn/version "1.9.5"}

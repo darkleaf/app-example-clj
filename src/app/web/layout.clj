@@ -26,4 +26,4 @@
                 crossorigin "anonymous"}]]
       [body
        [.container
-        (:tmpl)]]]]))
+        (:body)]]]]))
