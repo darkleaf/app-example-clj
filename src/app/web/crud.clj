@@ -54,33 +54,14 @@
 (def new-tmpl
   (wt/compile
    '[<>
-     [form.needs-validation {action     (:action)
-                             method     post
-                             novalidate true}
+     [form.needs-validation {action          (:action)
+                             method          post
+                             novalidate      true
+                             data-controller form-validation}
       (:string)
       (:required-string)
       [button.btn.btn-primary {type submit}
-       "Submit"]]
-     [script
-      "// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()"]]))
+       "Submit"]]]))
 
 (defn new-presenter [{::r/keys [router]}]
   {::wt/renderable #'layout/layout-tmpl

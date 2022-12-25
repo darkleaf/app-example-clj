@@ -1,0 +1,18 @@
+{
+  "name": "app-example-clj",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "bootstrap": "^5.2.3",
+    "stimulus-vite-helpers": "^3.0.1",
+    "vite": "^4.0.0",
+    "vite-plugin-stimulus-hmr": "^3.0.0"
+  }
+}
