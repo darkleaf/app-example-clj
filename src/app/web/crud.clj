@@ -56,8 +56,8 @@
    '[<>
      [form.needs-validation {action          (:action)
                              method          post
-                             data-controller "form-validation"
-                             data-action     "form-validation#validate"}
+                             data-controller "form-validator"
+                             data-action     "form-validator#validate"}
       (:string)
       (:required-string)
       [button.btn.btn-primary {type submit}
