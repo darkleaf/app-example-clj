@@ -56,8 +56,8 @@
    '[<>
      [form.needs-validation {action          (:action)
                              method          post
-                             novalidate      true
-                             data-controller form-validation}
+                             data-controller "form-validation"
+                             data-action     "form-validation#validate"}
       (:string)
       (:required-string)
       [button.btn.btn-primary {type submit}
