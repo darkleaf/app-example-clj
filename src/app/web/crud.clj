@@ -45,11 +45,14 @@
 
 (def input-tmpl
   (wt/compile
-   '[.mb-3
-     [label.form-label {for (:id)}
+   '[.mb-3 {data-controller           "input"
+            data-input-name-key-value (:name-key)}
+     [label.form-label {for               (:id)
+                        data-input-target "label"}
       (:label)]
-     [input.form-control {id  (:id)
-                          ... (:input-attrs)}]]))
+     [input.form-control {id                (:id)
+                          data-input-target "input"
+                          ...               (:input-attrs)}]]))
 
 (def new-tmpl
   (wt/compile
@@ -72,11 +75,13 @@
                     :string          {::wt/renderable #'input-tmpl
                                       :id             "string"
                                       :label          "String"
+                                      :name-key       "string"
                                       :input-attrs    {:type "text"
                                                        :name "form[string]"}}
                     :required-string {::wt/renderable #'input-tmpl
                                       :id             "required-string"
                                       :label          "Required string"
+                                      :name-key       "required-string"
                                       :input-attrs    {:type     "text"
                                                        :required true
                                                        :name     "form[required-string]"}}}})
