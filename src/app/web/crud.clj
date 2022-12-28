@@ -7,6 +7,13 @@
    [reitit.core :as r]
    [ring.util.http-response :as ring.resp]))
 
+#_
+{:login            "john"
+ [:errors :login]  [{...}]
+ :nested           [...]
+ [:errors :nested] [{...}]}
+
+
 ;; fail fast
 (defn text [#_{:required true, min max}]
   (fn [x]
