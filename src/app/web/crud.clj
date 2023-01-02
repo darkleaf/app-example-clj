@@ -49,11 +49,14 @@
 
 (def input-tmpl
   (wt/compile
-   '[.mb-3
-     [label.form-label {for (:id)}
+   '[.mb-3 {data-controller           "input"
+            data-input-name-key-value (:name-key)}
+     [label.form-label {for               (:id)
+                        data-input-target "label"}
       (:label)]
-     [input.form-control {id  (:id)
-                          ... (:input-attrs)}]]))
+     [input.form-control {id                (:id)
+                          data-input-target "input"
+                          ...               (:input-attrs)}]]))
 
 (defn input-presenter [path]
   (let [id   (path->input-id path)
@@ -89,7 +92,7 @@
                                          (update :input-attrs merge {:type     "string"
                                                                      :required true}))
                     :number          (-> (input-presenter [:form :number])
-                                         (update :input-attrs merge {:type "text"
+                                         (update :input-attrs merge {:type    "text"
                                                                      :pattern #"\d+"}))}})
 
 (defn new-action [-deps req]
