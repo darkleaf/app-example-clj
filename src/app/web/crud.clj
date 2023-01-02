@@ -69,17 +69,15 @@
 
 (def new-tmpl
   (wt/compile
-   '[<>
-     [form.needs-validation {action          (:action)
-                             method          post
-                             data-controller "form-validator"
-                             data-action     "form-validator#validate"}
-      (:string)
-      (:required-string)
-      (:number)
-      [button.btn.btn-primary {type submit}
-       "Submit"]]]))
-
+   '[form.needs-validation {action          (:action)
+                            method          post
+                            data-controller "form-validator"
+                            data-action     "form-validator#validate"}
+     (:string)
+     (:required-string)
+     (:number)
+     [button.btn.btn-primary {type submit}
+      "Submit"]]))
 
 
 (defn new-presenter [req]
