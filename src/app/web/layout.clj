@@ -15,8 +15,8 @@
        [title "App example"]
 
        "<!-- if development -->"
-       [script {type module src "http://localhost:5173/assets/@vite/client"}]
-       [script {type module src "http://localhost:5173/assets/main.js"}]]
+       [script {type module src "/assets/@vite/client"}]
+       [script {type module src "/assets/main.js"}]]
 
       [body
        [.container
