@@ -49,8 +49,8 @@
 
 (def input-tmpl
   (wt/compile
-   '[.mb-3 {data-controller           "input"
-            data-input-name-key-value (:name-key)}
+   '[.mb-3 {data-controller        "input"
+            data-input-t-key-value (:t-key)}
      [label.form-label {for               (:id)
                         data-input-target "label"}
       (:label)]
@@ -58,14 +58,14 @@
                           data-input-target "input"
                           ...               (:input-attrs)}]]))
 
-(defn input-presenter [path]
-  (let [id   (path->input-id path)
-        name (path->input-name path)]
+(defn input-presenter [form field]
+  (let [id         (str/join "_" [(name form) (name field)])
+        t-key      (str/join "." ["forms" (name form) (name field)])
+        input-name (str (name form) "[" (name field) "]")]
     {::wt/renderable #'input-tmpl
+     :t-key          t-key
      :id             id
-     :label          (last path)
-     :input-attrs    {:name name}}))
-
+     :input-attrs    {:name input-name}}))
 
 (def new-tmpl
   (wt/compile
@@ -86,14 +86,9 @@
   {::wt/renderable #'layout/layout-tmpl
    :body           {::wt/renderable  #'new-tmpl
                     :action          (path req :crud/new)
-                    :string          (-> (input-presenter [:form :string])
-                                         (update :input-attrs merge {:type "string"}))
-                    :required-string (-> (input-presenter [:form :required-string])
-                                         (update :input-attrs merge {:type     "string"
-                                                                     :required true}))
-                    :number          (-> (input-presenter [:form :number])
-                                         (update :input-attrs merge {:type    "text"
-                                                                     :pattern #"\d+"}))}})
+                    :string          (input-presenter :crud :string)
+                    :required-string (input-presenter :crud :required-string)
+                    :number          (input-presenter :crud :number)}})
 
 (defn new-action [-deps req]
   (-> (wt.ring/body (new-presenter req))
