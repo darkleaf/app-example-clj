@@ -21,8 +21,8 @@
       "New entity"]]))
 
 (defn index-presenter [req]
-  {::wt/renderable #'layout/layout-tmpl
-   :body           {::wt/renderable #'index-tmpl
+  {::wt/renderable layout/layout-tmpl
+   :body           {::wt/renderable index-tmpl
                     :new-entity-url (path req :crud/new)}})
 
 (defn index-action [-deps req]
@@ -45,10 +45,9 @@
      [button.btn.btn-primary {type submit}
       "Submit"]]))
 
-
 (defn new-presenter [req]
-  {::wt/renderable #'layout/layout-tmpl
-   :body           {::wt/renderable #'new-tmpl
+  {::wt/renderable layout/layout-tmpl
+   :body           {::wt/renderable new-tmpl
                     :action         (path req :crud/new)}})
 
 (defn new-action [-deps req]
