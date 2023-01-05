@@ -21,9 +21,9 @@
       "New entity"]]))
 
 (defn index-presenter [req]
-  {::wt/renderable layout/layout-tmpl
-   :body           {::wt/renderable index-tmpl
-                    :new-entity-url (path req ::new)}})
+  (layout/presenter req
+    {::wt/renderable index-tmpl
+     :new-entity-url (path req ::new)}))
 
 (defn index-action [-deps req]
   (-> (wt.ring/body (index-presenter req))
@@ -47,9 +47,9 @@
       "Submit"]]))
 
 (defn new-presenter [req]
-  {::wt/renderable layout/layout-tmpl
-   :body           {::wt/renderable new-tmpl
-                    :action         (path req ::index)}})
+  (layout/presenter req
+    {::wt/renderable new-tmpl
+     :action         (path req ::index)}))
 
 (defn new-action [-deps req]
   (-> (wt.ring/body (new-presenter req))
@@ -60,7 +60,8 @@
   (let [form (-> req
                  :params
                  :crud)]
-    (prn form)))
+    (prn form))
+  (ring.resp/found (path req ::index)))
 
 (def route-data
   (di/template

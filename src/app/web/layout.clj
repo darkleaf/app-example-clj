@@ -2,7 +2,7 @@
  (:require
   [darkleaf.web-template.core :as wt]))
 
-(def layout-tmpl
+(def tmpl
   (wt/compile
    '[<>
      "<!doctype html>"
@@ -12,6 +12,8 @@
        [meta {name          "viewport"
               content       "width=device-width"
               initial-scale "1"}]
+
+       [meta {name "csrf-token" content (:csrf-token)}]
        [title "App example"]
 
        "<!-- if development -->"
@@ -21,3 +23,10 @@
       [body
        [.container
         (:body)]]]]))
+
+(defn presenter
+  {:style/indent :defn}
+  [req body]
+  {::wt/renderable tmpl
+   :csrf-token     (-> req :anti-forgery-token)
+   :body           body})
