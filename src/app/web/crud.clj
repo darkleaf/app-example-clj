@@ -41,6 +41,7 @@
                          data-input-target label}]
       [input.form-control {id                crud_string
                            name              "crud[string]"
+                           required          true
                            data-input-target input}]]
      [button.btn.btn-primary {type submit}
       "Submit"]]))
