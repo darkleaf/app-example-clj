@@ -23,7 +23,7 @@
 (defn index-presenter [req]
   {::wt/renderable layout/layout-tmpl
    :body           {::wt/renderable index-tmpl
-                    :new-entity-url (path req :crud/new)}})
+                    :new-entity-url (path req ::new)}})
 
 (defn index-action [-deps req]
   (-> (wt.ring/body (index-presenter req))
@@ -49,7 +49,7 @@
 (defn new-presenter [req]
   {::wt/renderable layout/layout-tmpl
    :body           {::wt/renderable new-tmpl
-                    :action         (path req :crud/new)}})
+                    :action         (path req ::index)}})
 
 (defn new-action [-deps req]
   (-> (wt.ring/body (new-presenter req))
@@ -59,14 +59,13 @@
 (defn create-action [-deps req]
   (let [form (-> req
                  :params
-                 (get "crud"))]
+                 :crud)]
     (prn form)))
 
 (def route-data
   (di/template
-   [["" {:name :crud/index
-         :get  (di/ref `index-action)}]
-
-    ["/new" {:name :crud/new
-             :get  (di/ref `new-action)
-             :post (di/ref `create-action)}]]))
+   [["" {:name ::index
+         :get  (di/ref `index-action)
+         :post (di/ref `create-action)}]
+    ["/new" {:name ::new
+             :get  (di/ref `new-action)}]]))
