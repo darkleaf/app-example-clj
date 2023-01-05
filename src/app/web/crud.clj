@@ -1,12 +1,19 @@
 (ns app.web.crud
   (:require
+   [app.adapters.mongo :as mongo]
    [app.web.layout :as layout]
+   [clojure.string :as str]
    [darkleaf.di.core :as di]
    [darkleaf.web-template.core :as wt]
    [darkleaf.web-template.ring :as wt.ring]
    [reitit.core :as r]
    [ring.util.http-response :as ring.resp]
-   [clojure.string :as str]))
+   [darkleaf.bson-clj.core :as bson])
+  (:import
+   (com.mongodb.client MongoClient MongoDatabase)
+   (clojure.lang IPersistentMap)))
+
+(set! *warn-on-reflection* true)
 
 (defn- path [req name]
   (-> req
@@ -14,21 +21,41 @@
       (r/match-by-name name)
       (r/match->path)))
 
+(defn- db [{^MongoClient client `mongo/client}]
+  (.. client
+      (getDatabase "default")
+      (withCodecRegistry (bson/codec-registry))))
+
 (def index-tmpl
   (wt/compile
    '[<>
-     [a.btn.btn-primary {href (:new-entity-url)}
-      "New entity"]]))
+     [a.btn.btn-primary.mt-3 {href (:new-entity-url)}
+      "New entity"]
+     [table.table.table-bordered.mt-3
+      [thead
+       [tr
+        [th "id"]
+        [th "string"]]]
+      [tbody
+       (:entities
+        [tr
+         [td (:_id)]
+         [td (:string)]])]]]))
 
-(defn index-presenter [req]
+(defn index-presenter [req entities]
   (layout/presenter req
     {::wt/renderable index-tmpl
-     :new-entity-url (path req ::new)}))
+     :new-entity-url (path req ::new)
+     :entities       entities}))
 
-(defn index-action [-deps req]
-  (-> (wt.ring/body (index-presenter req))
-      (ring.resp/ok)
-      (ring.resp/content-type "text/html; charset=utf-8")))
+(defn index-action [{^MongoDatabase db `db} req]
+  (let [entities (.. db
+                     (getCollection "crud" IPersistentMap)
+                     (find))]
+
+    (-> (wt.ring/body (index-presenter req entities))
+        (ring.resp/ok)
+        (ring.resp/content-type "text/html; charset=utf-8"))))
 
 (def new-tmpl
   (wt/compile
@@ -56,11 +83,10 @@
       (ring.resp/ok)
       (ring.resp/content-type "text/html; charset=utf-8")))
 
-(defn create-action [-deps req]
-  (let [form (-> req
-                 :params
-                 :crud)]
-    (prn form))
+(defn create-action [{^MongoDatabase db `db} req]
+  (.. db
+      (getCollection "crud" IPersistentMap)
+      (insertOne (-> req :params :crud)))
   (ring.resp/found (path req ::index)))
 
 (def route-data

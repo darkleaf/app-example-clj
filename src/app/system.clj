@@ -12,4 +12,5 @@
 
 (defn dev-registry []
   [(base-registry)
-   {"PORT" "8080"}])
+   {"PORT"        "8080"
+    "MONGODB_URI" "mongodb://root:example@localhost:27017"}])

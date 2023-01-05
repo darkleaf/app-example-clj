@@ -3,7 +3,11 @@
          :sha     "ce41a37e7217c30886535fc0588bc6e452ce93c6"}
         org.clojars.darkleaf/web-templates
         {:git/url "https://github.com/darkleaf/web-template.git"
-         :sha     "dc406ed92ec36925cf3c060dccdd939fb31c488e"}
+         :sha     "4f65c6537868f103078a1b38a249732f742d1b0f"}
+        org.clojars.darkleaf/bson-clj
+        {:git/url "https://github.com/darkleaf/bson-clj.git"
+         :sha     "4f8e992f94ae48d52c752afb57338601837723c7"}
+        org.mongodb/mongodb-driver-sync {:mvn/version "4.8.1"}
 
         ring/ring-core             {:mvn/version "1.9.5"}
         ring/ring-anti-forgery     {:mvn/version "1.3.0"}
